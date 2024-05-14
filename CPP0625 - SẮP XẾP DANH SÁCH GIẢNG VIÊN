@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+#define ll long long
+#define P 100000007
+
+
+string convert(string s){
+	stringstream ss(s);
+	string token, tmp = " ";
+	while(ss >> token){
+		tmp += toupper(token[0]);
+	}
+	return tmp;
+}
+string getname(string s){
+	stringstream ss(s);
+	string token, res;
+	while(ss >> token){
+		res = token;
+	}
+	return res;
+}
+class GiangVien{
+	private:
+		string ID, hvt, nganh;
+		static int cnt;
+	public:
+		void nhap();
+		void HienThi();
+		string getTen(){
+			return this->hvt;
+		}
+		string getMa(){
+			return this->ID;
+		}
+};
+int GiangVien::cnt = 0;
+void GiangVien::nhap(){
+	cnt++;
+	ID = "GV" + string(2 - to_string(cnt).length(), '0') + to_string(cnt);
+	getline(cin >> ws, hvt);
+	getline(cin >> ws, nganh);
+}
+void GiangVien::HienThi(){
+	cout << ID << " " << hvt << " " << convert(nganh) <<endl;
+}
+bool compare(GiangVien &a, GiangVien &b){
+	if(getname(a.getTen()) != getname(b.getTen())){
+		return getname(a.getTen()) < getname(b.getTen());
+	}
+	return a.getMa() < b.getMa();
+}
+int main(){
+	int n; cin >> n;
+	GiangVien a[n];
+	for(int i = 0; i < n; i++) a[i].nhap();
+	sort(a, a+n, compare);
+	for(int i = 0; i < n; i++) a[i].HienThi();
+	return 0;
+}
+
