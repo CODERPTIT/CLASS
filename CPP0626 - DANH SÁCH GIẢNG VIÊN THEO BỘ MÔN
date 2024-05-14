@@ -1,0 +1,68 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <sstream>
+#include <iomanip>
+using namespace std;
+
+#define ll long long
+#define P 100000007
+
+string convert(string s) {
+    stringstream ss(s);
+    string token, tmp = "";
+    while (ss >> token) {
+        tmp += toupper(token[0]);
+    }
+    return tmp;
+}
+
+class GiangVien {
+    friend void HienThi(GiangVien a[], GiangVien b[], int n, int m);
+private:
+    string ID, hvt, nganh;
+    static int cnt;
+public:
+    void nhap1();
+    void nhap2();
+};
+
+int GiangVien::cnt = 0;
+
+void GiangVien::nhap1() {
+    cnt++;
+    ID = "GV" + string(2 - to_string(cnt).length(), '0') + to_string(cnt);
+    getline(cin >> ws, hvt);
+    getline(cin >> ws, nganh);
+}
+
+void GiangVien::nhap2() {
+    getline(cin >> ws, nganh);
+}
+
+void HienThi(GiangVien a[], GiangVien b[], int n, int m) {
+    for (int i = 0; i < m; i++) {
+        cout << "DANH SACH GIANG VIEN BO MON " << convert(b[i].nganh) << ":" << endl;
+        for (int j = 0; j < n; j++) {
+            if (convert(a[j].nganh) == convert(b[i].nganh)) {
+                cout << a[j].ID << " " << a[j].hvt << " " << convert(a[j].nganh) << endl;
+            }
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+    GiangVien a[n];
+    for (int i = 0; i < n; i++) a[i].nhap1();
+
+    int m;
+    cin >> m;
+    GiangVien b[m];
+    for (int i = 0; i < m; i++) b[i].nhap2();
+
+    HienThi(a, b, n, m);
+    return 0;
+}
+
