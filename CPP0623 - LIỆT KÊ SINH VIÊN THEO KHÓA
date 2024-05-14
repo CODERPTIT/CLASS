@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+#define ll long long
+#define P 100000007
+
+class SinhVien {
+private:
+    string msv, hvt, lop, email, nam;
+    ll id;
+
+public:
+    friend void nhap1(SinhVien[], int );
+    friend void nhap2(SinhVien[], int );
+    friend void HienThi(SinhVien*, SinhVien*, int, int);
+};
+
+void nhap1(SinhVien a[], int n) {
+	int i;
+	for( i = 0; i < n; i++){
+	    cin >> a[i].msv;
+	    getline(cin >> ws, a[i].hvt);
+	    cin >> a[i].lop >> a[i].email;
+	}
+}
+
+void nhap2(SinhVien b[], int id) {
+	int i;
+	for(i = 0; i < id; i++){
+	    cin >> b[i].nam;
+	}
+}
+
+void HienThi(SinhVien *a, SinhVien *b, int id, int n) {
+    for (int i = 0; i < id; i++) {
+    	cout <<"DANH SACH SINH VIEN KHOA"<<" "<<b[i].nam<<":"<<endl;
+        for (int j = 0; j < n; j++) {
+        	if(a[j].lop[1] == b[i].nam[2] && a[j].lop[2] == b[i].nam[3]){
+				cout << a[j].msv << " " << a[j].hvt << " " << a[j].lop << " " << a[j].email << endl;
+            }
+        }
+    }
+}
+int main() {
+    int n, id;
+    cin >> n;
+
+    SinhVien a[n];
+    nhap1(a, n);
+    
+    cin >> id;
+    SinhVien b[id];
+    nhap2(b, id);
+    
+    HienThi(a, b, id, n);
+
+    return 0;
+}
+// phai so sanh theo lop
