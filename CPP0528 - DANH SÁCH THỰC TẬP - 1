@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class SinhVien {
+private:
+    static int cnt;
+    int ID;
+    string msv, hvt, lop, email, doanhNghiep;
+public:
+    friend void nhap1(SinhVien &);
+    friend void nhap2(SinhVien &);
+    friend bool compare(const SinhVien &, const SinhVien &);
+    friend void sapXepHienThi(SinhVien [], int, SinhVien [], int);
+    friend void HienThi(const SinhVien [], int, const SinhVien [], int);
+};
+
+int SinhVien::cnt = 1;
+
+void nhap1(SinhVien &a) {
+    a.ID = a.cnt; a.cnt++;
+    cin >> a.msv;
+    getline(cin >> ws, a.hvt);
+    cin >> a.lop >> a.email;
+    getline(cin >> ws, a.doanhNghiep);
+}
+
+void nhap2(SinhVien &b) {
+    cin >> b.doanhNghiep;
+}
+
+bool compare(const SinhVien &a, const SinhVien &b) {
+    return a.hvt < b.hvt;
+}
+
+void sapXepHienThi(SinhVien a[], int n, SinhVien b[], int m) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n ; j ++) {
+            if (b[i].doanhNghiep == a[j].doanhNghiep) {
+                sort(a, a + n, compare);
+            }
+        }
+    }
+}
+
+void HienThi(const SinhVien a[], int n, const SinhVien b[], int m) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n ; j ++) {
+            if (b[i].doanhNghiep == a[j].doanhNghiep) {
+                cout << a[j].ID <<" "<<a[j].msv << " " <<a[j].hvt<<" "<<a[j].lop<<" "<<a[j].email <<" "<< a[j].doanhNghiep<<endl;
+            }
+        }
+    }
+}
+
+int main() {
+    int n; cin >> n; 
+    SinhVien a[n];
+    for (int i = 0; i < n; i++) nhap1(a[i]);
+    
+    int m; cin >> m;
+    SinhVien b[m];
+    for (int i = 0; i < m; i++) nhap2(b[i]);
+    
+    sapXepHienThi(a, n, b, m);
+    HienThi(a, n , b, m);
+    return 0;
+}
