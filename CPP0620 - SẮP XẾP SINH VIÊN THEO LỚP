@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+#define ll long long
+#define P 100000007
+using namespace std;
+
+class NhanVien{
+	private:
+		string msv, hvt, maLop, email;
+	public:
+		friend bool compare(NhanVien& a, NhanVien& b);
+		friend void sapxep(NhanVien *, int);
+		friend istream& operator>>(istream& in, NhanVien &a);
+		friend ostream& operator<<(ostream& out, const NhanVien &a);		
+};
+istream& operator>>(istream& in, NhanVien &a){
+	in >> a.msv;
+	getline(in >> ws, a.hvt);
+	in >> a.maLop>>a.email;
+	return in;
+}
+bool compare(NhanVien& a, NhanVien& b){
+	if(a.maLop == b.maLop) return a.msv < b.msv;
+	return a.maLop < b.maLop;
+}
+void sapxep(NhanVien *a, int n){
+	sort(a, a+n, compare);
+}
+ostream& operator<<(ostream& out, const NhanVien &a){
+	out << a.msv <<" "<<a.hvt<<" "<<a.maLop<<" "<<a.email<<endl;
+	return out;
+}
+int main() {
+    
+    int N, i;
+    cin >> N;
+    NhanVien *ds = new NhanVien[N];
+    for (i = 0; i < N; i++) cin >> ds[i];
+    sapxep(ds, N);
+    for (i = 0; i < N; i++) cout << ds[i];
+    delete[]ds;
+    return 0;
+}
