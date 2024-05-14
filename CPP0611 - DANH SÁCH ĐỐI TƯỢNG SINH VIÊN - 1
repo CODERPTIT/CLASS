@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+#define ll long long
+#define P 100000007
+using namespace std;
+
+
+void chuanHoa(string &s, int id){
+    s += string(3 - to_string(id).length(), '0') + to_string(id);
+}
+
+class SinhVien{
+	
+private:
+    string msv, lop, hvt, ngaySinh;
+    double diem;
+    static int cnt; 
+public:	
+    friend istream& operator>> (istream& in, SinhVien &a);
+    friend ostream& operator<< (ostream& out, SinhVien &a);
+};
+int SinhVien::cnt = 0;
+
+istream& operator>> (istream& in, SinhVien &a){
+    a.cnt++;
+    a.msv = "B20DCCN";
+    chuanHoa(a.msv, a.cnt);
+    getline(in >> ws, a.hvt);
+    cin >> a.lop >> a.ngaySinh >> a.diem;
+    if(a.ngaySinh[2] != '/') a.ngaySinh.insert(0, "0");
+    if(a.ngaySinh[5] != '/') a.ngaySinh.insert(3, "0");
+    return in;	
+}
+
+ostream& operator<< (ostream& out, SinhVien &a){
+    out << a.msv <<" "<<a.hvt<<" "<<a.lop<<" "<<a.ngaySinh<<" "<<fixed<<setprecision(2)<<a.diem<<endl;
+    return out;
+}
+
+int main(){
+    SinhVien ds[50];
+    int N, i;
+    cin >> N;
+    for(i=0;i<N;i++){
+        cin >> ds[i];
+    }
+    for(i=0;i<N;i++){
+        cout << ds[i];
+    }
+    return 0;
+}
