@@ -1,0 +1,46 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <sstream>
+#include <iomanip>
+using namespace std;
+
+#define ll long long
+#define P 100000007
+
+class ThucTap{
+	private:
+		string ma, ten;
+		ll number;
+	public:
+		void nhap();
+		void in();
+		ll getNumber(){
+			return this->number;
+		}
+		string getMa(){
+			return this->ma;
+		}
+};
+void ThucTap::nhap(){
+	cin >> ma;
+	getline(cin >> ws, ten);
+	cin >> number;
+}
+void ThucTap::in(){
+	cout << ma << " " << ten << " " << number<<endl;
+}
+bool compare(ThucTap a, ThucTap b){
+	if(a.getNumber() != b.getNumber()){
+		return a.getNumber() > b.getNumber();
+	}
+	return a.getMa() < b.getMa();
+}
+int main(){
+	int n; cin >> n;
+	ThucTap ds[n];
+	for(int i = 0; i < n; i++) ds[i].nhap();
+	sort(ds, ds+n, compare);
+	for(int i = 0; i < n; i++) ds[i].in();
+	return 0;
+}
