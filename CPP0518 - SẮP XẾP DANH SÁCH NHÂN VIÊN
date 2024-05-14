@@ -1,0 +1,63 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+#define ll long long
+#define P 100000007
+
+class NhanVien {
+private:
+    string msv, hvt, gender, birth, dc, sdt, ngayDk;
+    static int cnt;
+
+public:
+    friend void nhap(NhanVien &);
+    friend void inds(NhanVien [], int);
+    string GetBirth() const{
+    	return this->birth;
+	}
+};
+int NhanVien::cnt = 0;
+
+
+void nhap(NhanVien &a){
+    a.cnt++;
+    a.msv = string(5 - to_string(a.cnt).length(), '0') + to_string(a.cnt);
+    getline(cin >> ws, a.hvt);
+    cin >> a.gender >> a.birth;
+    getline(cin >> ws, a.dc);
+    cin >> a.sdt >> a.ngayDk;
+}
+
+bool compare(const NhanVien a, const NhanVien b) {
+    string year_a = a.GetBirth().substr(6, 4), year_b = b.GetBirth().substr(6, 4);
+    string month_a = a.GetBirth().substr(0, 2), month_b = b.GetBirth().substr(0, 2);
+    string day_a = a.GetBirth().substr(3, 2), day_b = b.GetBirth().substr(3, 2);
+
+    if (year_a != year_b) return year_a < year_b;
+    if (month_a != month_b) return month_a < month_b;
+    return day_a < day_b;
+}
+
+void sapxep(NhanVien a[], int n) {
+    sort(a, a + n, compare);
+}
+
+
+void inds(NhanVien a[], int n) {
+	for(int i = 0; i < n; i++){
+	    cout << a[i].msv << " " << a[i].hvt << " " << a[i].gender << " " << a[i].birth << " " << a[i].dc << " ";
+	    cout << a[i].sdt << " " << a[i].ngayDk << endl;
+	}
+}
+
+int main(){
+    struct NhanVien ds[50];
+    int N,i;
+    cin >> N;
+    for(i = 0; i < N; i++) nhap(ds[i]);
+    sapxep(ds, N);
+    inds(ds, N);
+    return 0;
+}
