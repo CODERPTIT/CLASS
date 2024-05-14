@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+#define ll long long
+#define P 100000007
+
+
+string convert(string s){
+	stringstream ss(s);
+	string token, tmp = "";
+	while(ss >> token){
+		tmp += toupper(token[0]);
+	}
+	return tmp;
+}
+string ChuanHoa(string &s){
+	for(int i = 0; i < s.length(); i++) s[i] = tolower(s[i]);
+	return s;
+}
+string getName(string s){
+	stringstream ss(s);
+	string token, v = "";
+	while(ss >> token){
+		v += ChuanHoa(token) + " ";
+	}
+	 if (!v.empty()) {
+        v.pop_back(); // Remove trailing space
+    }
+	return v;
+}
+class GiangVien{
+	private:
+		string ID, hvt, nganh;
+		static int cnt;
+	public:
+		void nhap();
+		void HienThi();
+		string getTen(){
+			return this->hvt;
+		}
+		string getMa(){
+			return this->ID;
+		}
+};
+int GiangVien::cnt = 0;
+void GiangVien::nhap(){
+	cnt++;
+	ID = "GV" + string(2 - to_string(cnt).length(), '0') + to_string(cnt);
+	getline(cin >> ws, hvt);
+	getline(cin >> ws, nganh);
+}
+void GiangVien::HienThi(){
+	cout << ID << " " << hvt << " " << convert(nganh) <<endl;
+}
+
+int main(){
+	int n; cin >> n;
+	GiangVien a[n];
+	for(int i = 0; i < n; i++) a[i].nhap();
+	
+	int m; cin >> m;
+	while(m--){
+		string s; cin >> s;
+		cout << "DANH SACH GIANG VIEN THEO TU KHOA "<<s<<":"<<endl;
+		ChuanHoa(s);
+		for(int i = 0; i < n; i++){
+			if(getName(a[i].getTen()).find(s) != string::npos) a[i].HienThi();
+		}
+	}
+	return 0;
+}
+
