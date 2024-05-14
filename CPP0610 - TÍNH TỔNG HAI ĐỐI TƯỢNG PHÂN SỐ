@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+#define ll long long
+using namespace std;
+
+
+class PhanSo{
+	private:
+		ll tu, mau;
+	public:
+		PhanSo(long long tu, long long mau);
+		friend istream& operator >> (istream& in, PhanSo &a);
+		friend ostream& operator << (ostream& out, PhanSo a);
+		void rutgon();
+		PhanSo operator + (PhanSo );
+};
+//constructor
+PhanSo::PhanSo(ll tu, ll mau){
+	this->tu = tu;
+	this->mau = mau;
+}
+//rut gon pso
+void PhanSo::rutgon(){
+	ll k = __gcd(tu, mau);
+	tu /= k;
+	mau /= k;
+}
+//tinh tong
+PhanSo PhanSo::operator + (PhanSo a){
+	PhanSo tong(1, 1);
+	tong.tu = this->tu * a.mau + this->mau * a.tu;
+	tong.mau = this->mau * a.mau;
+	tong.rutgon();
+	return tong;
+}
+//nhap
+istream& operator >> (istream& in, PhanSo &a){
+	cin >> a.tu >> a.mau;
+	a.rutgon();
+	return in;
+}
+//xuat
+ostream& operator << (ostream& out, PhanSo a){
+	out << a.tu << '/' << a.mau;
+	return out;
+}
+int main() {
+	PhanSo p(1,1), q(1,1);
+	cin >> p >> q;
+	cout << p + q;
+	return 0;
+}
+
