@@ -1,0 +1,117 @@
+#include<bits/stdc++.h>
+#define P 1000000007;
+#define PI 3.141592653589793238
+#define faster() ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+using ll = long long;
+using namespace std;
+
+//phai dung double
+class Point{
+
+protected:
+
+    double x, y;
+
+public:
+
+    void input(){cin>>x>>y;}
+
+    double distance(Point p2);
+    
+};
+
+double Point::distance(Point p2){
+
+    double result;
+
+    result =(x-p2.x)*(x-p2.x) + (y-p2.y)*(y-p2.y);
+
+    result = sqrt(result);
+
+    return result;
+
+}
+
+
+class Triangle{
+protected:
+
+    Point p[3];
+
+public:
+
+    void input() ;
+
+
+    double TichCacCanh() ;
+    
+    bool KiemTra();
+    
+    double calS();
+
+};
+
+void Triangle::input(){
+
+    for (int i=0; i<=2;i++)p[i].input();
+
+}
+
+bool Triangle::KiemTra(){
+	double d1 = p[0].distance(p[1]);
+
+    double d2 = p[1].distance(p[2]);
+
+    double d3 = p[2].distance(p[0]);
+    
+    return (d1 + d2 > d3) && (d1 + d3 > d2) && (d2 + d3 > d1);
+
+	
+}
+double Triangle::TichCacCanh(){
+
+    double d1 = p[0].distance(p[1]);
+
+    double d2 = p[1].distance(p[2]);
+
+    double d3 = p[2].distance(p[0]);
+
+    return d1*d2*d3;
+
+}
+
+double Triangle::calS(){
+
+    double d1 = p[0].distance(p[1]);
+
+    double d2 = p[1].distance(p[2]);
+
+    double d3 = p[2].distance(p[0]);
+
+    double p = (d1+d2+d3)/2;
+
+    double S = p*(p-d1)*(p-d2)*(p-d3);
+
+    return sqrt(S);
+
+}
+
+
+
+
+int main(){
+	int t; cin >> t;
+	while(t--){
+
+	    Triangle *sp;//sp is pointer of Triangle
+	
+	    sp = new (Triangle);
+	    
+	    sp->input();
+	    if(!sp->KiemTra()) cout << "INVALID\n";
+	    else{
+		    double r = sp->TichCacCanh()/(4*sp->calS());
+		    cout << fixed << setprecision(3) << PI*r*r<<endl;
+		}
+	}
+    return 0;
